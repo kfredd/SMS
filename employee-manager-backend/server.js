@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost",
+  "http://localhost"
 ];
 
 const app = express();
