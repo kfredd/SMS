@@ -20,11 +20,11 @@ const Entry = () => {
 
         {/* Buttons */}
         <div className="entry-buttons">
-          <Link to="employeelogin">
+          <Link to="/auth/employee/login">
             <button className="entry-button">Employee</button>
           </Link>
 
-          <Link to="adminlogin">
+          <Link to="/auth/admin/login">
             <button className="entry-button">HR-Admin</button>
           </Link>
         </div>
