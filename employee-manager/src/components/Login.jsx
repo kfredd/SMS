@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import LoadingBar from "react-top-loading-bar";
-// import { SignIn } from "./SignIn"; 
+import { SignIn } from "./SignIn"; 
 
 const Login = () => {
     const loadingbar = useRef(null);
@@ -45,7 +45,7 @@ const Login = () => {
                     error: { status: true, message: data.message || "Login failed" },
                 });
             }
-        } catch (err) {
+        } catch {
             setEmployeeState({
                 error: { status: true, message: "Something went wrong. Try again." },
             });
