@@ -5,6 +5,8 @@ const cors = require('cors');
 const http = require("http");
 require('dotenv').config();
 
+const authRoutes = require("./routes/userRoutes");
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost"
@@ -35,12 +37,13 @@ app.use("/uploads", express.static("uploads"));
 
 
 
+
 // Import routes
 // const authRoutes = require('./routes/authRoutes');
 
 
 // Routes
-// app.use('/api/auth', authRoutes);
+app.use('/employee/login', authRoutes);
 
 
 // Error Middleware

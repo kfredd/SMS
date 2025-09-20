@@ -27,7 +27,7 @@ const EmployeeLogin = () => {
 
         try {
             // Example API request (replace with your backend endpoint)
-            const res = await fetch("/api/auth/employee/login", {
+            const res = await fetch("/employee/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(signInForm),
