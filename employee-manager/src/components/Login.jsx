@@ -45,7 +45,7 @@ const Login = () => {
                     error: { status: true, message: data.message || "Login failed" },
                 });
             }
-        } catch (err) {
+        } catch {
             setEmployeeState({
                 error: { status: true, message: "Something went wrong. Try again." },
             });
