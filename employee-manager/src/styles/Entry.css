@@ -4,7 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;           /* Full screen height */
+  height: 100vh;
+  /* Full screen height */
   background-color: #ffffff;
 }
 
@@ -17,14 +18,22 @@
 .entry-image {
   max-width: 100%;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .entry-heading {
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: bold;
-  color: #1976d2; /* primary blue shade */
+  color: #1976d2;
+  /* primary blue shade */
   margin-bottom: 30px;
+
+  /* --- FIX APPLIED HERE --- */
+  white-space: nowrap;
+  /* Prevents text from wrapping to a new line */
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+
 }
 
 .entry-buttons {
@@ -34,7 +43,8 @@
 }
 
 .entry-button {
-  background-color: #8e24aa;   /* purple shade */
+  background-color: #8e24aa;
+  /* purple shade */
   color: white;
   font-weight: bold;
   padding: 10px 25px;
@@ -45,6 +55,18 @@
 }
 
 .entry-button:hover {
-  background-color: #6a1b9a;   /* darker purple on hover */
+  background-color: #6a1b9a;
+  /* darker purple on hover */
   transform: translateY(-2px);
+}
+
+/* --- MEDIA QUERY FOR SMALL SCREENS --- */
+@media (max-width: 768px) {
+  .entry-heading {
+    white-space: normal;
+    /* Allows text to wrap on smaller screens */
+    font-size: 1rem;
+    /* Adjust font size for better mobile readability */
+    overflow: visible;
+  }
 }

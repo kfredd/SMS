@@ -1,47 +1,63 @@
-// backend/models/User.js
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-// Define the user schema
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    firstname: {
       type: String,
-      required: [true, "Please add a name"],
+      required: true,
+      trim: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
     },
     email: {
       type: String,
-      required: [true, "Please add an email"],
+      required: true,
       unique: true,
       lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
+      required: true,
       minlength: 6,
     },
-    role: {
+    contactnumber: {
       type: String,
-      enum: ["employee", "admin"],
-      default: "employee",
+      required: true,
+      trim: true,
+    },
+    organization: {
+      name: { type: String, required: true, trim: true },
+      description: { type: String, trim: true },
+      url: { type: String, trim: true },
+      mail: { type: String, trim: true },
     },
   },
   { timestamps: true }
 );
 
-// Encrypt password before saving
+// Hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
-// Method to compare entered password with hashed password
+// Compare entered password with hashed password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+export default User;
