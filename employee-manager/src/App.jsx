@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Entry from "./components/Entry";
-import EmployeeLogin from "./pages/EmployeeLogin";
-import AdminLogin from "./pages/AdminLogin";
+import HRlogin from "./pages/HR/AdminLogin";
+import HRsignup from "./components/Signup";
 
 const App = () => {
   return (
@@ -11,8 +11,8 @@ const App = () => {
       <Route path="/" element={<Entry />} />
 
       {/* Login pages */}
-      <Route path="/auth/employee/login" element={<EmployeeLogin />} />
-      <Route path="/auth/admin/login" element={<AdminLogin />} />
+      <Route path="/api/user/HR/signup" element={<HRsignup />} />
+      <Route path="/api/user/HR/login" element={<HRlogin />} />
     </Routes>
   );
 };

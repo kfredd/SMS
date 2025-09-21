@@ -1,71 +1,78 @@
-import React, { useState, useRef } from "react";
-import LoadingBar from "react-top-loading-bar";
-import { SignIn } from "./SignIn"; 
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Login = () => {
-    const loadingbar = useRef(null);
-
-    // ✅ state for login form
-    const [signInForm, setSignInForm] = useState({
-        email: "",
-        password: "",
-    });
-
-    // ✅ error handling
-    const [employeeState, setEmployeeState] = useState({
-        error: { status: false, message: "" },
-    });
-
-    // handle form inputs
-    const handleSignInForm = (e) => {
-        const { name, value } = e.target;
-        setSignInForm((prev) => ({ ...prev, [name]: value }));
-    };
-
-    // handle submit
-    const handleSignInSubmit = async (e) => {
-        e.preventDefault();
-        loadingbar.current.continuousStart();
-
-        try {
-            // Example API call
-            const res = await fetch("/api/auth/employee/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(signInForm),
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                console.log("✅ Login success:", data);
-                window.location.href = "/employee/dashboard";
-            } else {
-                setEmployeeState({
-                    error: { status: true, message: data.message || "Login failed" },
-                });
-            }
-        } catch {
-            setEmployeeState({
-                error: { status: true, message: "Something went wrong. Try again." },
-            });
-        } finally {
-            loadingbar.current.complete();
-        }
-    };
-
+const Login = ({ image, handlesigninform, handlesigninsubmit, statevalue, redirectpath }) => {
     return (
-        <div className="employee-login-container">
-            <LoadingBar ref={loadingbar} />
-            <div className="employee-login-content d-flex justify-content-center align-items-center vh-100">
-                <SignIn
-                    image={"../../src/assets/Employee-Welcome.jpg"}
-                    handlesigninform={handleSignInForm}
-                    handlesigninsubmit={handleSignInSubmit}
-                    targetedstate={employeeState}
-                    statevalue={signInForm}
-                    redirectpath={"/auth/employee/forgot-password"}
-                />
+        <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-white">
+            <div className="row w-100 g-5 align-items-center">
+                {/* Left side image */}
+                <div className="col-md-6 d-flex justify-content-end align-items-center p-0 m-0 pe-5">
+                    <img
+                        src={image}
+                        alt="Your Company"
+                        className="img-fluid"
+                        style={{
+                            maxHeight: "380px",
+                            objectFit: "cover",
+                            marginRight: "0", // no margin
+                            paddingRight: "0", // no padding
+                        }}
+                    />
+                </div>
+
+                {/* Right side form */}
+                <div className="col-md-5 d-flex justify-content-start align-items-center p-0 m-0 ps-5">
+                    <div className="card shadow-sm p-4 w-100 border-0" style={{ maxWidth: "400px" }}>
+                        <h4 className="text-center mb-4 fw-bold">Sign in to your account</h4>
+                        <form onSubmit={handlesigninsubmit}>
+                            {/* Email */}
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label fw-semibold">
+                                    Email address
+                                </label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    required
+                                    value={statevalue.email}
+                                    onChange={handlesigninform}
+                                />
+                            </div>
+
+                            {/* Password */}
+                            <div className="mb-3">
+                                <div className="d-flex justify-content-between">
+                                    <label htmlFor="password" className="form-label fw-semibold">
+                                        Password
+                                    </label>
+                                    <Link to={redirectpath} className="small text-primary">
+                                        Forgot password?
+                                    </Link>
+                                </div>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required
+                                    value={statevalue.password}
+                                    onChange={handlesigninform}
+                                />
+                            </div>
+
+                            {/* Submit Button */}
+                            <div className="d-grid">
+                                <button type="submit" className="btn btn-primary">
+                                    Sign in
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     );

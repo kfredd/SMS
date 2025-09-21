@@ -1,0 +1,13 @@
+.custom-input {
+    border: 2px solid #333 !important;
+    /* Dark bold border */
+    box-shadow: none !important;
+    /* Remove Bootstrap shadows */
+}
+
+.custom-input:focus {
+    border-color: #000 !important;
+    /* Even darker when focused */
+    outline: none !important;
+    box-shadow: none !important;
+}

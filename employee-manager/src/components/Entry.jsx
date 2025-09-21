@@ -14,17 +14,17 @@ const Entry = () => {
         />
 
         {/* Heading */}
-        <h5 className="entry-heading">
+        <h3 className="entry-heading">
           Welcome To Employee Management System, Please Select Your Role to Proceed Further
-        </h5>
+        </h3>
 
         {/* Buttons */}
         <div className="entry-buttons">
-          <Link to="/auth/employee/login">
+          <Link to="/api/user/EMP/login">
             <button className="entry-button">Employee</button>
           </Link>
 
-          <Link to="/auth/admin/login">
+          <Link to="/api/user/HR/signup">
             <button className="entry-button">HR-Admin</button>
           </Link>
         </div>
