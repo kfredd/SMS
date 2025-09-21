@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import Login from "../../components/Login";  // ✅ default import
 import { useNavigate } from "react-router-dom";
 import employeeWelcomeImage from "../../assets/Employee-Welcome.jpg";
+import axios from "axios";
+
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -23,15 +25,15 @@ const AdminLogin = () => {
   const handleSignInForm = (e) => {
     setSignInForm({
       ...signInForm,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,  // ✅ use name
     });
   };
 
+
+  // ✅ Handle form submission
   // ✅ Handle form submission
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
-    setEmployeeState({ loading: true, error: "", success: "" });
-    loadingbar.current.continuousStart();
 
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
@@ -39,30 +41,30 @@ const AdminLogin = () => {
         password: signInForm.password,
       });
 
-      // ✅ Save JWT token
+      // console.log("Submitting login with:", signInForm);
+
+      // ✅ Save JWT token if available
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+
+        // ✅ Clear form fields
+        setSignInForm({
+          email: "",
+          password: "",
+        });
+
+        // Redirect immediately after successful login
+        console.log("welcome to the dashboard");
+        // navigate("/dashboard");
+      } else {
+        alert("Login failed: No token received");
       }
-
-      setEmployeeState({
-        loading: false,
-        error: "",
-        success: "Login successful! Redirecting...",
-      });
-
-      loadingbar.current.complete();
-
-      // Redirect to dashboard after login
-      setTimeout(() => navigate("/dashboard"), 1200);
     } catch (err) {
-      setEmployeeState({
-        loading: false,
-        error: err.response?.data?.message || "Invalid email or password",
-        success: "",
-      });
-      loadingbar.current.complete();
+      // Show proper error message
+      alert(err.response?.data?.message || "Invalid email or password");
     }
   };
+
 
   return (
     <div className="employee-login-container">
