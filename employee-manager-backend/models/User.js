@@ -3,9 +3,6 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-<<<<<<< HEAD
-    
-=======
     firstname: {
       type: String,
       required: true,
@@ -16,7 +13,6 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
->>>>>>> df81ce5f75527755b7ab68afaf469d88ec6c7cb1
     email: {
       type: String,
       required: true,
