@@ -1,15 +1,15 @@
 import React, { useState, useRef } from "react";
-import Login from "../../components/Login";  // ✅ default import
+import LoginForm from "../../components/Login";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import employeeWelcomeImage from "../../assets/Employee-Welcome.jpg";
 import axios from "axios";
 
-
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // lowercase to match context
   const loadingbar = useRef(null);
 
-  // ✅ State for login form
   const [signInForm, setSignInForm] = useState({
     email: "",
     password: "",
@@ -21,19 +21,16 @@ const AdminLogin = () => {
     success: "",
   });
 
-  // ✅ Handle input changes
   const handleSignInForm = (e) => {
     setSignInForm({
       ...signInForm,
-      [e.target.name]: e.target.value,  // ✅ use name
+      [e.target.name]: e.target.value,
     });
   };
 
-
-  // ✅ Handle form submission
-  // ✅ Handle form submission
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting login with:", signInForm);
 
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
@@ -41,36 +38,38 @@ const AdminLogin = () => {
         password: signInForm.password,
       });
 
-      // console.log("Submitting login with:", signInForm);
+      console.log("Response from backend:", res.data);
 
-      // ✅ Save JWT token if available
       if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+        const userData = {
+          token: res.data.token,
+          role: res.data.role,
+          email: res.data.email,
+          firstname: res.data.firstname,
+        };
 
-        // ✅ Clear form fields
-        setSignInForm({
-          email: "",
-          password: "",
-        });
+        console.log("Storing userData in context:", userData);
+        login(userData); // ✅ now from context
 
-        // Redirect immediately after successful login
-        console.log("welcome to the dashboard");
-        // navigate("/dashboard");
+        if (userData.role === "SuperAdminHR") {
+          navigate("/api/user/HR/dashboard"); // ✅ unified route
+        } else if (userData.role === "AdminHR") {
+          navigate("/api/user/HR/dashboard");
+        }
       } else {
         alert("Login failed: No token received");
       }
     } catch (err) {
-      // Show proper error message
+      console.error("Login error:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Invalid email or password");
     }
   };
 
-
   return (
     <div className="employee-login-container">
-      {/* <LoadingBar ref={loadingbar} /> */}
       <div className="employee-login-content d-flex justify-content-center align-items-center vh-100">
-        <Login image={employeeWelcomeImage}
+        <LoginForm
+          image={employeeWelcomeImage}
           handlesigninform={handleSignInForm}
           handlesigninsubmit={handleSignInSubmit}
           targetedstate={employeeState}

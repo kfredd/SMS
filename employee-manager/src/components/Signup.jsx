@@ -18,7 +18,9 @@ const SignUp = () => {
         description: "",
         OrganizationURL: "",
         OrganizationMail: "",
+        role: "Employee", // ✅ default
     });
+
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -51,6 +53,7 @@ const SignUp = () => {
 
             if (res.data.token) {
                 localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data)); // ✅ include role
             }
 
             setTimeout(() => navigate("/auth/HR/login"), 1500);
@@ -148,6 +151,20 @@ const SignUp = () => {
                                 onChange={handleChange}
                                 style={{ borderWidth: "2px" }}
                             />
+
+                            <label htmlFor="role" className="form-label mt-2">Role</label>
+                            <select
+                                id="role"
+                                className="form-select form-select-sm custom-input"
+                                value={formData.role}
+                                onChange={handleChange}
+                                style={{ borderWidth: "2px" }}
+                            >
+                                <option value="Employee">Employee</option>
+                                <option value="AdminHR">Admin HR</option>
+                                <option value="SuperAdminHR">Super Admin HR</option>
+                            </select>
+
 
                             <label htmlFor="name" className="form-label mt-2">Organization Name</label>
                             <input
