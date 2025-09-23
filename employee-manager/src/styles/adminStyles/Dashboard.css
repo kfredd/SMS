@@ -1,0 +1,56 @@
+/* Default styles (mobile-first) */
+.d-flex {
+    display: flex;
+    flex-wrap: nowrap;
+    /* overflow-x: hidden; */
+}
+
+.sidebar-wrapper {
+    flex-shrink: 0;
+}
+
+/* Main content should grow and adapt */
+.main-content {
+    flex-grow: 1;
+    min-width: 0;
+    overflow-x: hidden;
+    transition: margin-left 0.3s ease;
+    /* optional animation */
+}
+
+
+.dashboard-card {
+    aspect-ratio: 1 / 1;
+    min-height: 120px;
+    max-height: 200px;
+    transition: transform 0.2s ease-in-out;
+    text-align: center;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.03);
+}
+
+/* Adjust layout for larger screens */
+@media (min-width: 992px) {
+    .main-content {
+        margin-left: 250px;
+        /* match your sidebar width */
+    }
+
+    .sidebar-wrapper {
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        background-color: #fff;
+        /* or your sidebar bg */
+    }
+
+    .dashboard-card {
+        font-size: 0.9rem;
+        aspect-ratio: 1 / 1;
+    }
+}

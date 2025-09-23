@@ -1,0 +1,72 @@
+.AdminNavbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.dropdown-menu .dropdown-item i {
+    font-size: 18px;
+}
+
+.dropdown-menu .dropdown-divider {
+    margin: 0.5rem 0;
+}
+
+/* Logo Sizing and Spacing */
+.navbar-logo {
+    width: 90px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.navbar-logo {
+    height: 40px;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+    .navbar .alert {
+        text-align: center;
+        width: 100%;
+        margin: 10px auto;
+        font-size: 0.7rem;
+    }
+
+    .navbar .d-flex.align-items-center:last-child {
+        margin-left: auto !important;
+        justify-content: end !important;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .navbar .bi {
+        font-size: 1.3rem;
+    }
+
+    .navbar .bi-bell {
+        margin-left: auto;
+    }
+
+    .navbar .dropdown {
+        margin-left: 10px;
+    }
+}
