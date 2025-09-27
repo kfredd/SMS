@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import "../styles/Login.css"; // CSS file we’ll create below
+import { useNavigate } from "react-router-dom"; // ⬅️ add this
+import "../styles/Login.css"; // your CSS file
 
 const EmployeeLogin = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // ⬅️ hook to navigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Email:", email, "Password:", password);
+
+    // 👉 Replace with real login API
+    if (email === "admin@example.com" && password === "password") {
+      // ✅ successful login → navigate to HR Dashboard
+      navigate("/hr-dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
   };
+
   return (
     <div className="login-container">
       <div className="login-box">
