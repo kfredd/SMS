@@ -72,8 +72,8 @@ const Sidebar = () => {
                 <nav className="sidebar-menu">
                     {/* Dashboard */}
                     <Link
-                        to="/api/user/HR/dashboard"
-                        className={`sidebar-link ${isActive("/api/user/HR/dashboard") ? "active" : ""}`}
+                        to="/hr"
+                        className={`sidebar-link ${isActive("/hr") ? "active" : ""}`}
                     >
                         <i className="bi bi-house-door"></i> <span>Dashboard</span>
                     </Link>
@@ -119,6 +119,9 @@ const Sidebar = () => {
                             <div className="sidebar-submenu">
                                 <Link to="/hr/attendance" className={`sidebar-link ${isActive("/hr/attendance") ? "active" : ""}`}>
                                     <i className="bi bi-clock-history"></i> Attendance
+                                </Link>
+                                <Link to="/hr/clockReport" className={`sidebar-link ${isActive("/hr/clockReport") ? "active" : ""}`}>
+                                    <i className="bi bi-file-earmark-bar-graph"></i> Clock Report
                                 </Link>
                                 <Link to="/hr/leaves" className={`sidebar-link ${isActive("/hr/leaves") ? "active" : ""}`}>
                                     <i className="bi bi-calendar-check"></i> Leave Management

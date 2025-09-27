@@ -52,9 +52,9 @@ const AdminLogin = () => {
         login(userData); // ✅ now from context
 
         if (userData.role === "SuperAdminHR") {
-          navigate("/api/user/HR/dashboard"); // ✅ unified route
+          navigate("/hr"); // ✅ unified route
         } else if (userData.role === "AdminHR") {
-          navigate("/api/user/HR/dashboard");
+          navigate("/hr");
         }
       } else {
         alert("Login failed: No token received");
