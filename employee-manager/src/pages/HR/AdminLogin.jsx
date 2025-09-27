@@ -38,7 +38,7 @@ const AdminLogin = () => {
         password: signInForm.password,
       });
 
-      console.log("Response from backend:", res.data);
+      // console.log("Response from backend:", res.data);
 
       if (res.data.token) {
         const userData = {
@@ -48,14 +48,11 @@ const AdminLogin = () => {
           firstname: res.data.firstname,
         };
 
-        console.log("Storing userData in context:", userData);
+        // console.log("Storing userData in context:", userData);
         login(userData); // ✅ now from context
 
-        if (userData.role === "SuperAdminHR") {
-          navigate("/hr"); // ✅ unified route
-        } else if (userData.role === "AdminHR") {
-          navigate("/hr");
-        }
+        // ✅ Redirect and replace history so back button can't reopen login
+        navigate("/hr", { replace: true });
       } else {
         alert("Login failed: No token received");
       }

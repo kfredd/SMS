@@ -43,7 +43,7 @@ const Sidebar = () => {
     const handleLogout = () => {
         localStorage.removeItem("user");
         alert("Logged out successfully.");
-        navigate("/api/user/HR/login");
+        navigate("/");
     };
 
     const toggleSection = (section) => {

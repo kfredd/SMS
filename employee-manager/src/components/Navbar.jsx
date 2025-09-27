@@ -22,8 +22,8 @@ const Navbar = () => {
 
 
     const handleLogout = () => {
-        alert("Logged out successfully (dummy).");
-        navigate("/api/user/HR/login");
+        alert("Logged out successfully.");
+        navigate("/");
     };
 
 

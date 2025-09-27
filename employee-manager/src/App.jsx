@@ -42,13 +42,30 @@ const App = () => {
     }
   }
 
+  // ✅ Optional: lock back/forward navigation when logged in
+  useEffect(() => {
+    const handlePopState = () => {
+      if (user) {
+        window.history.go(1); // force stay
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [user]);
+
   return (
     <div className="page-wrapper">
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<Entry />} />
-        <Route path="/api/user/HR/signup" element={<HRsignup />} />
-        <Route path="/api/user/HR/login" element={<HRlogin />} />
+        <Route
+          path="/api/user/HR/signup"
+          element={user ? <Navigate to="/hr" replace /> : <HRsignup />}
+        />
+        <Route
+          path="/api/user/HR/login"
+          element={user ? <Navigate to="/hr" replace /> : <HRlogin />}
+        />
 
         {/* HR Dashboard wrapper (Sidebar + Navbar + Footer + Outlet) */}
         <Route

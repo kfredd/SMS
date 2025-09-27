@@ -1,16 +1,21 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
     const { user, loading } = useAuth();
+    const location = useLocation();
 
     if (loading) return <p>Loading...</p>;
 
-    if (!user) return <Navigate to="/api/user/HR/login" replace />;
+    // ✅ If no user → force redirect to login, keep original location for potential redirect back
+    if (!user) {
+        return <Navigate to="/" replace state={{ from: location }} />;
+    }
 
+    // ✅ Role-based protection
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-        return <Navigate to="/" replace />; // unauthorized → send home or 403 page
+        return <Navigate to="/" replace />;
     }
 
     return children;
